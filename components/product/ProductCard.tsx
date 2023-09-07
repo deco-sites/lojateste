@@ -8,6 +8,8 @@ import { useVariantPossibilities } from "$store/sdk/useVariantPossiblities.ts";
 import type { Product } from "apps/commerce/types.ts";
 import { mapProductToAnalyticsItem } from "apps/commerce/utils/productToAnalyticsItem.ts";
 import Image from "apps/website/components/Image.tsx";
+import Icon from "deco-sites/lojateste/components/ui/Icon.tsx";
+import { StarRating } from "deco-sites/lojateste/components/ui/StarRating.tsx";
 
 export interface Layout {
   basics?: {
@@ -67,6 +69,7 @@ function ProductCard(
     image: images,
     offers,
     isVariantOf,
+    aggregateRating
   } = product;
   const id = `product-card-${productID}`;
   const productGroupID = isVariantOf?.productGroupID;
@@ -74,6 +77,7 @@ function ProductCard(
   const { listPrice, price, installments } = useOffer(offers);
   const possibilities = useVariantPossibilities(product);
   const variants = Object.entries(Object.values(possibilities)[0] ?? {});
+  console.log("⭐ aggregateRating", aggregateRating);
 
   const l = layout;
   const align =
@@ -133,6 +137,12 @@ function ProductCard(
         class="relative overflow-hidden"
         style={{ aspectRatio: `${WIDTH} / ${HEIGHT}` }}
       >
+        {/* Star Rating */}
+        {aggregateRating && (
+          <div class="absolute top-2 right-2">
+            <StarRating {...aggregateRating}/>
+          </div>
+        )}
         {/* Wishlist button */}
         <div
           class={`absolute top-2 z-10
