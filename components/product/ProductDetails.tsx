@@ -203,7 +203,7 @@ function ProductInfo({ page, layout }: { page: ProductDetailsPage } & Props) {
 				</span>
 			</div>
 			{/* Reviews Simple Style */}
-			{reviews?.length && (
+			{!!reviews?.length && (
 				<div class="mt-4 sm:mt-6">
 					<span class="text-sm">
 						<details>
